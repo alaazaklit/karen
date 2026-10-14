@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Karen K Sanctuaries — Coming Soon</title>
+<meta name="description" content="New wings taking form. Karen K Sanctuaries — interior architecture in Dubai, London, Miami, Beirut and Ibiza. The studio's new website is coming soon.">
+<meta name="theme-color" content="#1a130c">
+<meta property="og:site_name" content="Karen K Sanctuaries">
+<meta property="og:title" content="Karen K Sanctuaries — New Wings Taking Form">
+<meta property="og:description" content="Interior architecture · Dubai, London, Miami, Beirut, Ibiza. Coming soon.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Karen K Sanctuaries — New Wings Taking Form">
+<meta name="twitter:description" content="Interior architecture · Dubai, London, Miami, Beirut, Ibiza. Coming soon.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Canela-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/NeueHaasGrotText-55Roman.woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/wings/wing-l.webp" type="image/webp">
+<link rel="preload" as="image" href="assets/img/wings/wing-r.webp" type="image/webp">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/coming-soon.css">
+<script>document.documentElement.classList.remove('no-js');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Karen K Sanctuaries","url":"https://karenksanctuaries.com/",
+ "description":"Interior architecture studio established in Dubai in 2015, working across residential, hospitality and commercial projects in the UAE and internationally.",
+ "areaServed":[{"@type":"Place","name":"Dubai, United Arab Emirates"},{"@type":"Place","name":"London, United Kingdom"},{"@type":"Place","name":"Miami, United States"},{"@type":"Place","name":"Beirut, Lebanon"},{"@type":"Place","name":"Ibiza, Spain"}],
+ "email":"info@karenksanctuaries.com"}
+</script>
+</head>
+<body>
+
+<!-- ======================= LOADER (the name surfaces in the dark, then the wings) ======================= -->
+<div class="loader" id="loader" aria-hidden="true"><img class="loader-logo" src="assets/img/kk-logo-icon.png" width="1086" height="450" alt="Karen K Sanctuaries"></div>
+
+<!-- ======================= THE WINGS, CLOSED — one screen =======================
+     The homepage gateway's first frame, held. coming-soon.js draws the wing
+     masters in WebGL with the intro's idle breathing and no opening; without
+     WebGL, with reduced motion, or without JavaScript the same masters are
+     shown CSS-masked, closed. -->
+<main class="cs-stage" id="cs-stage">
+  <canvas class="gw-canvas" id="gw-canvas" aria-hidden="true"></canvas>
+  <div class="gw-fallback" id="gw-fallback" aria-hidden="true">
+    <img class="fb-wing l" src="assets/img/wings/wing-l.webp" width="923" height="1400" alt="" decoding="async">
+    <i class="fb-seam"></i>
+    <img class="fb-wing r" src="assets/img/wings/wing-r.webp" width="907" height="1400" alt="" decoding="async">
+  </div>
+  <canvas class="gw-dust" id="gw-dust" aria-hidden="true"></canvas>
+
+  <div class="cs-logo">
+    <img src="assets/img/kk-logo-mark.png" width="360" height="165" alt="Karen K Sanctuaries" decoding="async">
+  </div>
+
+  <div class="cs-copy">
+    <h1 class="cs-title"><span class="line-mask"><span>NEW WINGS</span></span> <span class="line-mask"><span>TAKING FORM</span></span></h1>
+    <p class="cs-soon">Coming soon</p>
+    <i class="cs-thread" aria-hidden="true"></i>
+    <div class="cs-brand">
+      <p class="cs-name">KAREN K SANCTUARIES</p>
+      <p class="cs-disc">INTERIOR ARCHITECTURE</p>
+      <ul class="cs-cities dots" aria-label="Markets"><li>DUBAI</li><li>LONDON</li><li>MIAMI</li><li>BEIRUT</li><li>IBIZA</li></ul>
+    </div>
+    <a class="btn btn--light cs-cta" href="mailto:info@karenksanctuaries.com" data-enquire><span>START A PROJECT</span><i class="arrow" aria-hidden="true"></i></a>
+  </div>
+</main>
+
+<!-- three.js draws the WebGL wings; site.js provides the START A PROJECT overlay.
+     gsap / ScrollTrigger / Lenis are not loaded: nothing on this page scrolls or scrubs.
+     assets/js/gateway-assets.js (base64 textures) is fetched by the engine only when
+     the page is opened from disk (file://). -->
+<script defer src="assets/vendor/jquery.min.js"></script>
+<script defer src="assets/vendor/three.min.js"></script>
+<script defer src="assets/js/site.js"></script>
+<script defer src="assets/js/coming-soon.js"></script>
+</body>
+</html>

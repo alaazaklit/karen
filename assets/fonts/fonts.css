@@ -1,0 +1,44 @@
+/* ==========================================================================
+   KAREN K SANCTUARIES — brand typefaces (licensed, self-hosted)
+
+   Canela                 display · statements · titles · numerals
+   Neue Haas Grotesk Text navigation · labels · metadata · body · UI
+
+   NOTE — the supplied Neue Haas Grotesk Text files are the foundry's
+   "Trial" subset (75 glyphs: A–Z, a–z, 0–9, space ! " ' , - . ? and curly
+   quotes). Characters outside that set (& : / @ + • — · accents) fall
+   through to the next face in the stack (Helvetica Neue / Helvetica /
+   Arial), which is metrically close enough to pass unnoticed. Replace the
+   two NHG files with the full licensed cut when it is available — no CSS
+   change is required.
+   ========================================================================== */
+
+@font-face{
+  font-family:'Canela';
+  src:url('Canela-Regular.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:'Neue Haas Grotesk';
+  src:url('NeueHaasGrotText-55Roman.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:'Neue Haas Grotesk';
+  src:url('NeueHaasGrotText-75Bold.woff2') format('woff2');
+  font-weight:700;font-style:normal;font-display:swap;
+}
+
+/* --------------------------------------------------------------------------
+   THE BRAND LOCKUP — "Karen K" in Canela Bold, "sanctuaries" in Neue Haas
+   Grotesk Light. Those two cuts are NOT in this package: only Canela Regular
+   and NHG 55 Roman / 75 Bold were supplied, and a weight is never faked here.
+   To switch the lockup to the real cuts: drop the two files into this folder
+   and uncomment the three blocks below — no other change is needed anywhere.
+
+@font-face{ font-family:'Canela'; src:url('Canela-Bold.woff2') format('woff2');
+  font-weight:700; font-style:normal; font-display:swap; }
+@font-face{ font-family:'Neue Haas Grotesk'; src:url('NeueHaasGrotText-45Light.woff2') format('woff2');
+  font-weight:300; font-style:normal; font-display:swap; }
+:root{ --wm-k-weight:700; --wm-s-weight:300; }
+   -------------------------------------------------------------------------- */

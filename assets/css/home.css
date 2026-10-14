@@ -1,0 +1,344 @@
+/* ============================================================================
+   KAREN K SANCTUARIES — HOMEPAGE SCENES (loaded after site.css)
+
+   1 loader             2 the cinema (one pinned stage)
+   3 hall (S1 → S2)     4 arches (S3)        5 studio band (S4)
+   6 credentials+film   7 selected projects  8 responsive
+   9 calm / no-js       (the Method section on this page is styled by method.css)
+
+   Sections 1–3 are the cinematic introduction and Section 4 (the Studio) is
+   its last frame: all four are LAYERS of one pinned stage (.cine-stage). Each
+   chapter emerges through the light aperture of the one before it — a forward
+   dolly on the outgoing plate, a growing soft aperture on the incoming one —
+   never a slide, a scene swap or a white veil. There is no pure white on this
+   page: every light is ivory, champagne or limestone, and every haze is warm.
+   ==========================================================================*/
+
+/* ---------- 1 · loader ---------- */
+.loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--night);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0;transition:opacity .8s var(--ease),visibility 0s .8s}
+.loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+/* the full brand mark, large enough to read, surfacing out of the dark */
+.loader-logo{width:min(26rem,54vw);height:auto;opacity:0;animation:loaderName 1.6s var(--ease) .1s forwards}
+@media (max-width:640px){.loader-logo{width:min(15rem,66vw)}}
+@keyframes loaderName{to{opacity:.72}}
+/* revisit in the same session: a brief ivory breath instead of the dark trace */
+html.gw-seen .loader{background:var(--ivory);transition-duration:.6s}
+
+/* ---------- 2 · the cinema ---------- */
+.cinema{position:relative;background:var(--ivory)}
+.cine-stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--night)}
+.cine-layer{position:absolute;inset:0;overflow:hidden}
+.cine-hall{z-index:1;background:var(--night)}
+.cine-hall .hall-plate{z-index:1}
+.cine-arches{z-index:2;background:var(--limestone);visibility:hidden}
+.cine-studio{z-index:3;background:var(--limestone);visibility:hidden}
+.cine-atmos{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+/* the copy layer sits above the plates, the lights, the mist and the atmosphere (z 5): text is always in front */
+.cine-copy{position:absolute;inset:0;z-index:6;pointer-events:none}
+.cine-copy>*{pointer-events:none}
+.cine-copy .st-copy{pointer-events:auto}
+html:is(.cine-static,.no-js) .cine-copy{display:none}
+/* the incoming chapter is revealed through a soft aperture, sized in screen space (the mask sits
+   on the layer, the dolly on the plate inside it, so the opening never scales with the image) */
+.cine-layer.is-masked{
+  -webkit-mask-image:radial-gradient(ellipse var(--apw,18%) var(--aph,28%) at var(--apx,50%) var(--apy,50%),#000 0%,#000 var(--apin,66%),rgba(0,0,0,0) 100%);
+          mask-image:radial-gradient(ellipse var(--apw,18%) var(--aph,28%) at var(--apx,50%) var(--apy,50%),#000 0%,#000 var(--apin,66%),rgba(0,0,0,0) 100%)}
+.cine-plate{position:absolute;inset:0;will-change:transform;transform-origin:var(--ox,50%) var(--oy,50%)}
+.fill-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ---------- 3 · the hall: closed wings → the lit hall ---------- */
+.hall-plate{position:absolute;inset:0;will-change:transform;transform-origin:50% 50%}
+.gw-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+/* with WebGL the plates are drawn in depth on the canvas; the DOM layers keep only the text and the lights */
+html.cine-gl .cine-layer{background:transparent}
+html.cine-gl .cine-hall .hall-plate .gw-fallback{display:none}
+html.cine-gl .cine-arches .cine-plate,html.cine-gl .cine-studio .cine-plate{display:none}
+html.cine-gl .cine-arches,html.cine-gl .cine-studio{visibility:visible}
+
+/* light suspended over the credentials and the projects */
+.page-atmos{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;opacity:0;transition:opacity .8s var(--ease)}
+.page-atmos.is-on{opacity:1}
+html:is(.cine-static,.no-js) .page-atmos{display:none}
+.gw-dust{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+/* the floor of the hall melts into light — champagne sunlight, not a white fog; it thins as we walk in */
+.gw-mist{position:absolute;inset:auto 0 0;height:24%;z-index:4;pointer-events:none;opacity:var(--mist-o,0);
+  background:linear-gradient(0deg,rgba(240,228,206,.92) 0%,rgba(240,228,206,.62) 24%,rgba(240,228,206,.22) 58%,rgba(240,228,206,0) 100%)}
+/* DOM fallback wings (no WebGL / reduced motion) — the same masters, transparent WebP */
+.gw-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  background:radial-gradient(60% 90% at 50% 42%,#2a1f14 0%,var(--night) 70%)}
+.gw-fallback .fb-reveal{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:0;transition:opacity 3s cubic-bezier(.55,0,.15,1)}
+.gw-fallback .fb-wing{position:relative;height:min(72vh,72svh);width:auto;
+  transition:transform 4.2s cubic-bezier(.55,0,.15,1),opacity 3.2s cubic-bezier(.55,0,.15,1);filter:brightness(1.18)}
+.gw-fallback .fb-wing.l{margin-right:-1.2%}
+.gw-fallback .fb-wing.r{margin-left:-1.2%}
+.gw-fallback.is-js .fb-wing,.gw-fallback.is-js .fb-reveal{transition:none}
+.gw-fallback.is-open .fb-wing.l{transform:translateX(-70%);opacity:0}
+.gw-fallback.is-open .fb-wing.r{transform:translateX(70%);opacity:0}
+.gw-fallback.is-open .fb-reveal{opacity:1}
+/* titles live in a DOM depth field above the canvas; they do not dolly with the plate */
+.gw-titles{position:absolute;inset:0;z-index:6;pointer-events:none}
+/* closed state: the identity holds the true centre — the wings frame it */
+.gw-head{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  text-align:center;padding:0 var(--gutter);will-change:transform,opacity,filter}
+.gw-head::before{content:"";position:absolute;left:50%;top:50%;width:120vmin;height:56vmin;z-index:-1;
+  transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(26,19,12,.66),transparent 72%)}
+.gw-name{font:400 var(--t-xxl)/.98 var(--f-display);letter-spacing:.08em;padding-left:.08em;text-transform:uppercase;
+  color:var(--champagne);text-shadow:0 2px 26px rgba(26,19,12,.85),0 0 80px rgba(26,19,12,.5);max-width:9em}
+.gw-name span{display:block}
+.gw-disc{margin-top:clamp(2.2rem,3.8vw,3.4rem);font:400 clamp(.7rem,1.1vw,.84rem)/1 var(--f-text);letter-spacing:.42em;padding-left:.42em;text-transform:uppercase;
+  color:#efe4cc;text-shadow:0 1px 14px rgba(26,19,12,.95),0 0 28px rgba(26,19,12,.6)}
+.gw-cities{margin-top:.55rem;font:400 clamp(.69rem,1vw,.78rem)/1 var(--f-text);letter-spacing:.34em;text-transform:uppercase;
+  color:#d9bf8f;text-shadow:0 1px 6px rgba(26,19,12,1),0 0 18px rgba(26,19,12,.9);justify-content:center}
+.gw-cities>*+*::before{background:#d9bf8f;opacity:.9;margin:0 1.1em}
+/* open state: the statement stands in the light, ink on limestone */
+.gw-reveal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;
+  text-align:center;padding:0 var(--gutter) 6vh;will-change:transform,opacity}
+.gw-h1{font:400 var(--t-xl)/1 var(--f-display);color:var(--ink);letter-spacing:.02em;text-transform:uppercase}
+.gw-sub{font:400 clamp(.92rem,1.15vw,1.05rem)/1.5 var(--f-text);letter-spacing:.06em;color:var(--ink);opacity:0;will-change:opacity,transform;
+  text-shadow:0 0 14px rgba(249,240,220,.9),0 0 28px rgba(249,240,220,.7)}
+.gw-h1 .line-mask>span{transform:translate3d(0,130%,0);will-change:transform}
+html.no-js .gw-h1 .line-mask>span{transform:none}
+html.no-js .gw-sub{opacity:1}
+
+/* ---------- 4 · the arches — through the architecture, toward the light ---------- */
+.ar-far{transform-origin:50% 54%;will-change:transform}
+/* selected arches lit a shade more — warm light screened onto the stone, for depth and separation */
+/* .ar-light / .st-light are fitted to the photograph's rendered box by the engine (object-fit: cover mapping),
+   so their positions are in IMAGE space and hold on every viewport */
+.ar-light{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:var(--arl,.9);
+  background:
+    radial-gradient(9% 22% at 50% 52%,rgba(238,212,160,.46) 0%,rgba(238,212,160,0) 100%),
+    radial-gradient(7% 36% at 20% 50%,rgba(236,218,182,.40) 0%,rgba(236,218,182,0) 100%),
+    radial-gradient(7% 36% at 80% 50%,rgba(236,218,182,.40) 0%,rgba(236,218,182,0) 100%),
+    radial-gradient(26% 16% at 50% 8%,rgba(236,218,182,.22) 0%,rgba(236,218,182,0) 100%)}
+.ar-copy{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;
+  text-align:center;padding:0 var(--gutter);pointer-events:none;will-change:transform,opacity}
+.ar-kicker{font:400 clamp(.82rem,1.08vw,.95rem)/1 var(--f-text);letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;color:var(--ink);
+  /* a wide light halo bled over the hairline strokes and ate them; a tight halo lifts the ground
+     right at the glyph, and a 1px ink edge gives the stroke the weight the cut does not have */
+  text-shadow:0 0 7px rgba(246,238,222,.95),0 0 2px rgba(246,238,222,.9),0 0 1px rgba(21,19,17,.5)}
+.ar-line{font:400 var(--t-xl)/1.02 var(--f-display);color:var(--ink);letter-spacing:.015em;text-transform:uppercase;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0 .28em;max-width:14em}
+/* each word rises out of its own baseline. The mask ends 0.115em below the baseline (it sits at ~.785em) so Canela's
+   rounds (O, G, S, C) and the full stop, which dip .02em below it, are never shaved; the rows keep the same footprint. */
+.w-mask{display:inline-block;overflow:hidden;height:.9em;padding:.06em .12em 0;margin:-.06em -.12em .09em}
+.ar-w{display:inline-block;will-change:transform}
+
+/* legibility without clipped glows: a feathered pool of warm light behind each headline (it fades to nothing at its own
+   edges, sits outside the word/line masks, and rises with the words via --pool) */
+.gw-h1,.ar-line{position:relative;isolation:isolate}
+.gw-h1::before,.ar-line::before{content:"";position:absolute;left:50%;top:50%;width:150%;height:240%;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;
+  opacity:var(--pool,0);background:radial-gradient(ellipse closest-side,rgba(246,233,208,.6) 0%,rgba(246,233,208,.42) 60%,rgba(246,233,208,0) 100%)}
+/* off until the words rise (site.js/home-engine set --pool); always on where the chapters are static */
+html:is(.no-js,.cine-static,.calm) .gw-h1,html:is(.no-js,.cine-static,.calm) .ar-line{--pool:1}
+
+.ar-list{margin-top:.9rem;font:400 clamp(.8rem,1.05vw,.92rem)/1.8 var(--f-text);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);justify-content:center;
+  text-shadow:0 0 7px rgba(246,238,222,.95),0 0 2px rgba(246,238,222,.9),0 0 1px rgba(21,19,17,.5)}
+
+/* ---------- 5 · the studio band — the introduction lands, the website begins ---------- */
+.st-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+/* selected arches and the far doorway lit a shade more; the skyline kept clear */
+.st-light{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.9;
+  background:
+    radial-gradient(6% 13% at 85% 46%,rgba(243,222,176,.50) 0%,rgba(243,222,176,0) 100%),
+    radial-gradient(5% 26% at 44% 34%,rgba(240,222,186,.34) 0%,rgba(240,222,186,0) 100%),
+    radial-gradient(4% 22% at 58% 34%,rgba(240,222,186,.28) 0%,rgba(240,222,186,0) 100%)}
+/* the copy stands in warm light, not a white wash: champagne screened over the shaded stone at left */
+.st-glow{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
+  /* off until the engine brings it up with the Studio copy: at its CSS default of 1 the Studio layer (visible in the
+     WebGL mode from the start) laid this left-side wash over the hall's headline before the first scroll tick — the haze
+     the review circled on "IMAGINATION". the veil at roughly half its former strength (review: "too exaggerated");
+     the copy keeps its contrast through a narrower, feathered pool of light and a faint warm halo on the type, not a wash */
+  background:linear-gradient(90deg,rgba(240,223,189,.44) 0%,rgba(240,223,189,.37) 22%,rgba(240,223,189,.20) 46%,rgba(240,223,189,.06) 68%,rgba(240,223,189,0) 86%)}   /* half strength, feathered almost to the far side so no edge can read */
+.st-copy{position:absolute;left:0;top:50%;z-index:4;transform:translateY(-50%);padding:0 var(--gutter);max-width:min(46rem,100%)}
+.st-copy .label{display:block;margin-bottom:1.4rem}
+.st-copy .display-xl{text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.st-copy .lede{margin-top:2rem;max-width:27em}   /* a shorter measure: better line length, and it stays over the lit stone */
+.st-copy .display-xl,.st-copy .lede,.st-copy .label{text-shadow:0 1px 14px rgba(246,236,214,.26)}
+.st-copy .lede{color:var(--ink)}
+/* a feathered pool of the same champagne behind the copy alone (fades to nothing at its own edges): the floor's shadow
+   under the paragraph stays ≥4.5:1 without bringing the wash back */
+.st-copy{isolation:isolate}
+.st-copy::before{content:"";position:absolute;left:-10%;top:-18%;width:130%;height:138%;z-index:-1;pointer-events:none;opacity:var(--pool-st,0);
+  background:radial-gradient(ellipse closest-side at 42% 50%,rgba(242,226,196,.38) 0%,rgba(242,226,196,.24) 52%,rgba(242,226,196,0) 100%)}   /* the plate now carries the light, so the wash is halved */
+html:is(.cine-static,.no-js) .st-copy{--pool-st:1}
+html:is(.cine-static,.no-js) .st-glow{opacity:1}
+@media (max-width:1080px) and (min-width:641px){
+  .st-glow{background:linear-gradient(90deg,rgba(240,223,189,.48) 0%,rgba(240,223,189,.40) 26%,rgba(240,223,189,.22) 52%,rgba(240,223,189,.06) 74%,rgba(240,223,189,0) 90%)}
+}
+.st-copy .st-r{will-change:transform,opacity}
+
+/* ---------- 6 · credentials and the film ---------- */
+.studio-cred{position:relative;background:var(--ivory)}
+.st-cred{padding-block:var(--sec-tight) var(--s-6)}
+.cred{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 clamp(1.5rem,3vw,3rem);border-top:1px solid var(--hair)}
+.cred-item{padding:1.8rem 0 0;position:relative}
+.cred-item:nth-child(2),.cred-item:nth-child(4){margin-top:clamp(1.5rem,4vw,3.6rem)}
+.cred-item::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
+.cred-item.is-in::before{transform:scaleX(1)}
+.cred-item b{display:block;font:400 clamp(1.7rem,2.6vw,2.6rem)/1.06 var(--f-display);color:var(--ink);letter-spacing:.02em;text-transform:uppercase;text-wrap:balance}
+.cred-item span{display:block;margin-top:.9rem;font:400 var(--t-micro)/1.8 var(--f-text);letter-spacing:var(--track);text-transform:uppercase;color:var(--stone);max-width:14em}
+/* the company-in-action film (hidden until footage is supplied — see index.html) */
+.st-film{padding-bottom:var(--sec)}
+.st-film-head{display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.st-film-frame{position:relative;aspect-ratio:16/9;background:var(--limestone);overflow:hidden;
+  box-shadow:0 0 0 1px var(--hair-soft),0 40px 90px -50px rgba(58,44,24,.45)}
+.st-film-frame::after{content:"";position:absolute;inset:-6%;pointer-events:none;z-index:-1;
+  background:radial-gradient(60% 50% at 50% 50%,rgba(240,223,189,.9),rgba(240,223,189,0) 70%)}
+.st-film-video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---------- 7 · selected projects — one project at a time ----------
+   A single full-width stage (the same aspect on every slide) so nothing ever
+   moves when a project changes; a refined crossfade with a slow settle; controls
+   that read as typography, not widgets. The work is the focal point.
+   ---------------------------------------------------------------- */
+.projects{position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--ivory) 0%,var(--champagne) 46%,var(--ivory) 100%)}   /* ends where the next section begins: one continuous ground */
+.projects::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 40% at 78% 18%,rgba(249,240,220,.9) 0%,rgba(249,240,220,0) 70%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 84%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 84%,rgba(0,0,0,0) 100%)}
+.pj-head{position:relative;padding:var(--s-6) 0 var(--s-4)}   /* shares the wide container with the stage: title and photograph on one left edge */
+.pj-head .head-row{margin-bottom:0}
+.pj-head .display-l{text-transform:uppercase;letter-spacing:.02em}
+.pj-desc{margin-top:1.1rem;max-width:34em;font-size:var(--t-small);line-height:1.6;color:var(--ink-2);text-wrap:pretty}
+.pj-show{position:relative;padding-bottom:var(--sec)}
+/* the stage carries a slim illuminated edge: a 1px champagne stroke, a soft bloom, and a slow light travelling along the frame */
+@property --pj-ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.pj-stage{position:relative;width:100%;aspect-ratio:16/9;max-height:78vh;max-height:78svh;background:var(--limestone);overflow:hidden;
+  box-shadow:0 0 0 1px rgba(214,186,138,.95),0 0 0 2px rgba(255,238,206,.28),0 0 22px rgba(224,196,146,.55),0 0 64px rgba(224,196,146,.28),0 60px 110px -60px rgba(58,44,24,.5)}
+.pj-stage::before{content:"";position:absolute;inset:-4%;z-index:-1;pointer-events:none;
+  background:radial-gradient(55% 45% at 50% 55%,rgba(240,223,189,.95),rgba(240,223,189,0) 72%)}
+.pj-stage::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;padding:1px;
+  background:conic-gradient(from var(--pj-ang),rgba(255,244,220,0) 0deg,rgba(255,244,220,0) 250deg,rgba(255,247,226,.55) 300deg,#fff8e4 322deg,rgba(255,247,226,.55) 344deg,rgba(255,244,220,0) 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  filter:drop-shadow(0 0 4px rgba(255,240,205,.9));animation:pj-travel 11s linear infinite}
+@keyframes pj-travel{to{--pj-ang:360deg}}
+@media (prefers-reduced-motion:reduce){.pj-stage::after{animation:none}}
+.pj-slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none}
+.pj-slide.is-current{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.pj-link{position:absolute;inset:0;display:block;overflow:hidden}
+.pj-link picture,.pj-link img{position:absolute;inset:0;width:100%;height:100%}
+.pj-link img{object-fit:cover;object-position:var(--focus,50% 50%);transform:scale(1.02);transition:transform 2.2s var(--ease);will-change:transform}
+.pj-slide.is-current .pj-link:hover img,.pj-slide.is-current .pj-link:focus-visible img{transform:scale(1.06)}
+.pj-link:focus-visible{outline:1.5px solid var(--ink);outline-offset:-6px}
+/* the caption: name, location, typology — set in the frame's lower edge on a warm gradient, not a box */
+.pj-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:clamp(3.5rem,8vh,6rem) clamp(1.4rem,2.6vw,2.4rem) clamp(1.3rem,2.4vw,2rem);pointer-events:none;
+  background:linear-gradient(0deg,rgba(28,22,16,.62) 0%,rgba(28,22,16,.34) 50%,rgba(28,22,16,0) 100%)}
+.pj-cat{margin-bottom:.8rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track-wide);text-transform:uppercase;color:#e6cfa2;text-shadow:0 1px 10px rgba(26,19,12,.4)}
+.pj-name{font:400 var(--t-l)/1.05 var(--f-display);color:var(--ivory-hi);letter-spacing:.01em;text-shadow:0 2px 24px rgba(26,19,12,.35)}
+.pj-meta{margin-top:.7rem;color:#e6d9c1;text-shadow:0 1px 10px rgba(26,19,12,.4)}
+.pj-meta .tbc{color:#e6d9c1;border-bottom-color:rgba(230,217,193,.5)}
+/* controls */
+.pj-ctl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(1.2rem,3vw,2.6rem);padding-top:1.4rem;margin-top:1.2rem;border-top:1px solid var(--hair)}
+.pj-count{display:flex;align-items:center;gap:.8rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track);color:var(--stone)}
+.pj-count-sep{width:2.2rem;height:1px;background:var(--hair-strong)}
+.pj-index{display:flex;align-items:center;gap:clamp(1rem,2vw,1.8rem);justify-content:center;flex-wrap:wrap}
+.pj-index button{position:relative;display:block;padding:.6rem .1rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track);text-transform:uppercase;color:var(--stone);
+  transition:color var(--d-fast)}
+.pj-index button::after{content:"";position:absolute;left:0;right:0;bottom:.2rem;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.pj-index button:hover,.pj-index button:focus-visible,.pj-index button[aria-current="true"]{color:var(--ink)}
+.pj-index button[aria-current="true"]::after{transform:scaleX(1)}
+.pj-arrows{display:flex;gap:.6rem}
+.pj-btn{width:3rem;height:3rem;display:grid;place-items:center;border:1px solid var(--hair-strong);color:var(--ink);border-radius:50%;
+  transition:border-color var(--d-fast),background var(--d-fast),color var(--d-fast)}
+.pj-btn .arrow{width:1.15rem;transition:transform var(--d) var(--ease)}
+.pj-btn:hover,.pj-btn:focus-visible{border-color:var(--ink);background:var(--ink);color:var(--ivory)}
+.pj-btn.pj-next:hover .arrow{transform:translateX(3px)}
+.pj-btn.pj-prev:hover .arrow{transform:rotate(180deg) translateX(3px)}
+.pj-stage.is-dragging .pj-link img,.pj-stage.is-switching .pj-link img{transition:none}
+
+/* ---------- 8 · responsive ---------- */
+@media (max-width:900px){
+  .gw-name{letter-spacing:.06em;padding-left:.06em}
+  .gw-cities{letter-spacing:.26em}
+  .gw-cities>*+*::before{margin:0 .8em}
+  .st-img{object-position:78% 50%}   /* the far arch and the Burj Khalifa stay in frame on phones */
+  .st-copy{top:auto;bottom:0;transform:none;padding:0 var(--gutter) clamp(3rem,8vh,5rem);max-width:100%}
+  .st-glow{background:linear-gradient(0deg,rgba(240,223,189,.46) 0%,rgba(240,223,189,.36) 34%,rgba(240,223,189,.16) 62%,rgba(240,223,189,.04) 80%,rgba(240,223,189,0) 94%)}
+  .cred{grid-template-columns:1fr 1fr;gap:0 1.5rem}
+  .cred-item:nth-child(2),.cred-item:nth-child(4){margin-top:0}
+  .cred-item{padding-top:1.4rem;margin-bottom:2rem}
+  .pj-ctl{grid-template-columns:auto auto;grid-template-areas:"index index" "count arrows";gap:1rem 1.2rem}
+  .pj-count{grid-area:count}
+  .pj-index{grid-area:index;justify-content:flex-start}
+  .pj-arrows{grid-area:arrows;justify-self:end}
+  
+  
+  
+  
+}
+@media (max-width:720px){
+  .pj-show{width:100%}                       /* the stage bleeds edge to edge on phones */
+  .pj-stage{aspect-ratio:4/5;max-height:none;box-shadow:0 0 0 1px var(--hair-soft)}
+  .pj-ctl{margin-inline:var(--gutter)}
+  .pj-name{font-size:clamp(1.9rem,8vw,2.6rem)}
+}
+@media (max-width:640px){
+  .gw-name{font-size:clamp(2.35rem,11.5vw,3.4rem)}
+  .gw-disc{letter-spacing:.3em;padding-left:.3em}
+  .gw-cities{font-size:.66rem;letter-spacing:.16em}
+  .gw-h1{font-size:clamp(2.1rem,9.6vw,3rem)}
+  .ar-line{font-size:clamp(2rem,9.4vw,3rem);max-width:9em}
+  .ar-list{letter-spacing:.14em;font-size:.76rem}
+  .st-copy .display-xl{font-size:clamp(2.1rem,9.6vw,3rem)}
+  .cred{grid-template-columns:1fr}
+  .cred-item{margin-bottom:1.4rem}
+  
+}
+
+/* short landscape viewports (phones on their side): the name must not fill the frame */
+@media (max-height:540px) and (orientation:landscape){
+  .gw-name{font-size:clamp(1.9rem,11vh,3.4rem)}
+  .gw-head{gap:.8rem}
+  .gw-disc{font-size:.6rem;letter-spacing:.34em}
+  .gw-cities{font-size:.55rem}
+  .gw-h1{font-size:clamp(1.8rem,10vh,3.2rem)}
+  .gw-reveal{padding-bottom:2vh}
+  .st-copy .display-xl{font-size:clamp(1.8rem,10vh,3.2rem)}
+}
+
+/* ---------- 9 · calm (reduced motion / no WebGL), static (reduced motion / no-js) ---------- */
+html.calm .gw-canvas{display:none}
+html.calm .gw-fallback{display:flex}
+html.calm .gw-dust{display:none}
+/* reduced motion or no JavaScript: the chapters stand one beneath the other, everything visible, nothing pinned */
+html:is(.cine-static,.no-js) .cine-stage{height:auto;overflow:visible;background:var(--ivory)}
+html:is(.cine-static,.no-js) .cine-layer{position:relative;height:100vh;height:100svh;visibility:visible!important;
+  -webkit-mask-image:none!important;mask-image:none!important;opacity:1!important;transform:none!important}
+html:is(.cine-static,.no-js) .cine-plate,html.cine-static .hall-plate{transform:none!important}
+html:is(.cine-static,.no-js) .cine-atmos,html.cine-static .gw-dust{display:none}
+html:is(.cine-static,.no-js) .gw-mist{--mist-o:1}
+html:is(.cine-static,.no-js) .gw-head{display:none}
+html:is(.cine-static,.no-js) .gw-h1 .line-mask>span{transform:none!important}
+html:is(.cine-static,.no-js) .gw-sub{opacity:1!important;transform:none!important}
+html:is(.cine-static,.no-js) .ar-w{transform:none!important}
+html:is(.cine-static,.no-js) .ar-copy,html.cine-static .ar-kicker,html.cine-static .ar-list{opacity:1!important;transform:none!important}
+html:is(.cine-static,.no-js) .st-r{opacity:1!important;transform:none!important}
+html.no-js .gw-canvas,html.no-js .loader{display:none}
+html.no-js .gw-fallback{display:flex}
+html.no-js .gw-fallback .fb-wing.l{transform:translateX(-70%);opacity:0}
+html.no-js .gw-fallback .fb-wing.r{transform:translateX(70%);opacity:0}
+html.no-js .nav.on-dark{color:var(--ink)}
+html.no-js .gw-fallback .fb-reveal{opacity:1}
+html.no-js .pj-stage{aspect-ratio:auto;max-height:none;display:grid;gap:2rem;box-shadow:none;background:none}
+html.no-js .pj-slide{position:relative;opacity:1;visibility:visible;pointer-events:auto;aspect-ratio:16/9}
+html.no-js .pj-ctl{display:none}
+
+/* the chapter lists stay readable on small screens (letterspaced capitals
+   close up below about 10px); the lockup itself is untouched */
+@media (max-width:860px){
+  .ar-list{font-size:.76rem;letter-spacing:.14em}
+  .gw-cities{font-size:.7rem}
+}
+@media (max-width:860px) and (orientation:landscape){
+  .gw-disc{font-size:.66rem}
+  .gw-cities{font-size:.64rem}
+}
+
+/* the project index numerals carry a 44px target on touch, same mark */
+@media (max-width:860px){
+  .pj-index{gap:.3rem}
+  .pj-index button{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+}

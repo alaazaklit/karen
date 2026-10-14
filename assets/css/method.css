@@ -1,0 +1,206 @@
+/* ============================================================================
+   THE KAREN K METHOD — styles shared by method.html and the landing section.
+   Warm champagne / limestone / ivory only. No paper-beige, no curved graphic.
+   1 ground   2 hero   3 who it is for   4 the statement   5 the six steps
+   6 transformations (before / after)   7 the film   8 landing section   9 responsive / motion
+   ==========================================================================*/
+
+/* ---------- 1 · ground ---------- */
+.km{position:relative;color:var(--ink);
+  background:linear-gradient(180deg,var(--ivory) 0%,var(--champagne) 46%,var(--ivory) 100%)}
+.km::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(55% 44% at 82% 20%,rgba(249,240,220,.95) 0%,rgba(249,240,220,0) 72%),
+             radial-gradient(40% 30% at 10% 70%,rgba(240,223,189,.8) 0%,rgba(240,223,189,0) 70%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 16%,#000 88%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 16%,#000 88%,rgba(0,0,0,0) 100%)}   /* no edge where one section meets the next */
+.km>*{position:relative}
+.km .caps{text-transform:uppercase;letter-spacing:.02em}
+
+/* ---------- 1b · the hero film (method.html): full width, full height, the navigation on dark above it ---------- */
+.km-filmhero{position:relative;height:100vh;height:100svh;min-height:34rem;overflow:hidden;background:var(--night);color:var(--ivory-hi)}
+.km-filmhero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.km-filmhero-scrim{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,rgba(20,15,10,.66) 0%,rgba(20,15,10,.28) 34%,rgba(20,15,10,0) 60%),linear-gradient(180deg,rgba(20,15,10,.38) 0%,rgba(20,15,10,0) 24%)}
+.km-filmhero-in{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;padding-bottom:clamp(2.2rem,6vh,4.5rem)}
+.km-filmhero-k{color:#e4cc9d}
+.km-filmhero-dots{font:400 clamp(1.15rem,2vw,1.8rem)/1.2 var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--ivory-hi);text-shadow:0 2px 24px rgba(26,19,12,.35)}
+.km-filmhero-dots li+li::before{color:#e4cc9d}
+.km-scroll{display:inline-flex;align-items:center;gap:.8rem;margin-top:.6rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track);text-transform:uppercase;color:#e4cc9d}
+.km-scroll i{position:relative;width:1px;height:2.6rem;background:rgba(228,204,157,.35);overflow:hidden}
+.km-scroll i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#e4cc9d;animation:kmScroll 2.4s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes kmScroll{to{top:100%}}
+.km-filmhero+.km-intro{padding-top:var(--sec)}
+@media (prefers-reduced-motion:reduce){.km-scroll i::after{animation:none}}
+
+/* ---------- 2 · intro (page hero and landing opening share it) ---------- */
+.km-intro{padding:calc(var(--sec) + 3rem) 0 var(--s-6)}
+.km-intro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,7rem);align-items:start}
+.km-intro .label{display:block;margin-bottom:1.6rem}
+/* the title: sized so "TRANSFORMATION." always fits its column (the reveal mask clips anything wider) */
+.km-title{font:400 clamp(2.05rem,4.1vw,4.15rem)/1 var(--f-display);letter-spacing:.015em;text-transform:uppercase;color:var(--ink);text-wrap:balance;overflow-wrap:normal;max-width:100%}
+.km-intro-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}
+.km-intro .km-line{margin-top:1.2rem;font:400 clamp(1rem,1.5vw,1.35rem)/1.3 var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--bronze);max-width:22em}
+.km-intro .lede{max-width:40em}
+.km-intro .km-pillars{margin-top:2.4rem}
+
+.km-pillars{display:grid;gap:.8rem;font:400 var(--t-micro)/1.8 var(--f-text);letter-spacing:var(--track);text-transform:uppercase;color:var(--stone)}
+.km-pillars li{display:flex;gap:1rem;align-items:baseline;padding:.9rem 0;border-top:1px solid var(--hair)}
+.km-pillars li:last-child{border-bottom:1px solid var(--hair)}
+.km-pillars b{font:400 var(--t-m)/1 var(--f-display);color:var(--ink);text-transform:none;letter-spacing:0;min-width:2.6em}
+
+/* ---------- 3 · who it is for ---------- */
+.km-for{padding:var(--s-6) 0}
+.km-for-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);border-top:1px solid var(--hair)}
+.km-for-card{padding:2rem 0 0}
+.km-for-card .label{display:block;margin-bottom:1rem}
+.km-for-card p{font-size:var(--t-small);line-height:1.65;color:var(--ink-2);max-width:30em;text-wrap:pretty}
+
+/* ---------- 4 · the statement ---------- */
+.km-statement{padding:var(--sec) 0;text-align:center}
+.km-statement p{font:400 clamp(1.7rem,3.6vw,3.4rem)/1.12 var(--f-display);letter-spacing:.01em;text-transform:uppercase;max-width:15em;margin:0 auto;text-wrap:balance}
+.km-statement p em{font-style:normal;color:var(--bronze)}
+.km-statement .km-rule{width:3rem;height:1px;background:var(--bronze);margin:2.2rem auto 0}
+
+/* ---------- 5 · the six steps ---------- */
+.km-steps{padding:var(--sec) 0}
+.km-steps-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,7rem);align-items:start}
+.km-rail{position:sticky;top:6.5rem}
+.km-rail .label{display:block;margin-bottom:1.4rem}
+.km-rail h2{max-width:8em}
+.km-rail-list{margin-top:2.2rem;border-top:1px solid var(--hair);position:relative}
+.km-rail-list::after{content:"";position:absolute;left:0;top:-1px;height:1px;width:var(--km-progress,0%);background:var(--bronze);transition:width .5s var(--ease)}
+.km-rail-list button{display:grid;grid-template-columns:2.6rem 1fr;gap:1rem;align-items:baseline;width:100%;text-align:left;padding:.85rem 0;border-bottom:1px solid var(--hair);
+  color:var(--stone);transition:color .35s var(--ease)}
+.km-rail-list button i{font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track);font-style:normal;color:var(--mist)}
+.km-rail-list button span{font:400 var(--t-small)/1.2 var(--f-display);letter-spacing:.08em;text-transform:uppercase}
+.km-rail-list button[aria-current="true"],.km-rail-list button:hover,.km-rail-list button:focus-visible{color:var(--ink)}
+.km-rail-list button[aria-current="true"] i{color:var(--bronze)}
+.km-list{border-top:1px solid var(--hair)}
+.km-step{display:grid;grid-template-columns:4.2rem minmax(0,1fr);gap:1rem clamp(1rem,2.4vw,2.6rem);padding:clamp(2rem,4vw,3.4rem) 0;border-bottom:1px solid var(--hair);
+  opacity:.5;transition:opacity .6s var(--ease)}
+.km-step.is-in,.km-step:focus-within{opacity:1}
+.km-step>i{display:block;padding-top:.5rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track-wide);color:var(--bronze);font-style:normal}
+.km-step h3{font:400 var(--t-l)/1.02 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
+.km-tags{display:flex;flex-wrap:wrap;gap:.1em .55em;font:400 var(--t-micro)/1.8 var(--f-text);letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.km-tags>*+*::before{content:"·";margin-right:.55em;color:var(--bronze)}
+.km-step .km-tags{margin-top:.8rem}
+.km-step p{margin-top:1.3rem;color:var(--ink-2);max-width:34em;font-size:var(--t-small);line-height:1.65;text-wrap:pretty}
+
+/* the slot: an honest, elegant "to follow" state — never a stand-in photograph */
+
+/* ---------- 6 · transformations — one full-width interactive comparison, carousel between three ---------- */
+.km-trans{padding:var(--sec) 0}
+.km-trans-head{align-items:end;margin-bottom:2.4rem}
+.km-trans-head p{max-width:26em}
+/* landing page: the method's own title heads the before / after comparison */
+.km-trans-head--method{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,5vw,6rem);align-items:end;margin-bottom:clamp(2rem,4vw,3.2rem)}
+.km-trans-head--method .label{display:block;margin-bottom:1.4rem}
+.km-trans-head--method .km-line{margin-top:1.1rem;max-width:24em}
+.km-trans-hint{justify-self:end;text-align:right;max-width:22em;color:var(--stone);text-transform:none;letter-spacing:.02em;font-size:.86rem;line-height:1.6;padding-bottom:.35rem}
+.km--landing>.km-trans:first-child{padding-top:0}
+.bax{position:relative;width:100%}
+.bax-stage{position:relative;width:100%;aspect-ratio:16/9;max-height:82vh;max-height:82svh;overflow:hidden;background:linear-gradient(135deg,var(--limestone),var(--champagne));
+  box-shadow:0 0 0 1px var(--hair-soft),0 60px 120px -60px rgba(58,44,24,.5)}
+.bax-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s var(--ease)}
+.bax-slide.is-current{opacity:1;visibility:visible}
+.bax-cap{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;flex-direction:column;gap:.4rem;
+  padding:clamp(3.5rem,9vh,7rem) clamp(1.4rem,3vw,3rem) clamp(1.3rem,2.4vw,2.2rem);pointer-events:none;
+  background:linear-gradient(0deg,rgba(28,22,16,.62) 0%,rgba(28,22,16,.28) 55%,rgba(28,22,16,0) 100%)}
+.bax-cap-k{font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track-wide);text-transform:uppercase;color:#e6cfa2}
+.bax-cap b{font:400 var(--t-l)/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--ivory-hi)}
+.bax-cap-d{font:400 var(--t-small)/1.5 var(--f-text);color:#eaddc6;max-width:34em}
+/* the comparison itself */
+.ba{position:absolute;inset:0;aspect-ratio:auto;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}   /* aspect-ratio:auto — the legacy .ba rule in site.css set 16/10, which left the 4:5 phone stage half empty */
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--focus,50% 50%);pointer-events:none}
+.ba .ba-after{clip-path:inset(0 0 0 var(--ba,50%))}
+.ba .ba-tag{position:absolute;top:1.1rem;font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--ivory-hi);
+  padding:.55rem .8rem;background:rgba(28,22,16,.42);pointer-events:none;z-index:3}
+.ba .ba-tag--before{left:1.1rem}.ba .ba-tag--after{right:1.1rem}
+.ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--ba,50%);width:0;pointer-events:none;z-index:3}
+.ba .ba-handle::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ivory-hi);box-shadow:0 0 14px rgba(26,19,12,.4)}
+.ba .ba-knob{position:absolute;top:50%;left:50%;width:3.4rem;height:3.4rem;transform:translate(-50%,-50%);border-radius:50%;border:1px solid var(--ivory-hi);
+  background:rgba(28,22,16,.4);display:grid;place-items:center;color:var(--ivory-hi);font:400 .8rem/1 var(--f-text);letter-spacing:.08em;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.ba input[type="range"]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:2}
+.ba input[type="range"]:focus-visible ~ .ba-handle .ba-knob{outline:2px solid var(--ivory-hi);outline-offset:3px}
+/* carousel controls */
+.bax-arrow{position:absolute;top:calc(50% - 2.5rem);z-index:6;width:3.4rem;height:3.4rem;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(249,240,220,.6);background:rgba(28,22,16,.32);color:var(--ivory-hi);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);transition:background .3s var(--ease),border-color .3s var(--ease)}
+.bax-arrow:hover,.bax-arrow:focus-visible{background:rgba(28,22,16,.55);border-color:var(--ivory-hi)}
+.bax-arrow .arrow{width:1.15rem}
+.bax-prev{left:clamp(.6rem,1.6vw,1.6rem)}.bax-next{right:clamp(.6rem,1.6vw,1.6rem)}
+.bax-prev .arrow{transform:rotate(180deg)}
+.bax-ctl{display:flex;align-items:center;gap:clamp(1.2rem,3vw,2.4rem);padding-top:1.4rem;margin:0 auto;max-width:var(--wrap);padding-inline:var(--gutter)}
+.bax-count{font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track);color:var(--stone)}
+.bax-count b{font-weight:400;color:var(--ink)}
+.bax-dots{display:flex;gap:.7rem;flex:1}
+.bax-dot{padding:.6rem 0;cursor:pointer}
+.bax-dot i{display:block;width:2.4rem;height:2px;background:var(--hair-strong);transition:background .35s var(--ease)}
+.bax-dot:hover i,.bax-dot:focus-visible i{background:var(--bronze)}
+.bax-dot.is-on i{background:var(--ink)}
+
+/* ---------- 7 · the film ---------- */
+.km-film{padding:var(--sec) 0 calc(var(--sec) + 2rem)}
+.km-film-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(2rem,5vw,6rem);align-items:center}
+.km-film .lede{margin-top:1.4rem;font-size:1rem;max-width:30em}
+.km-film-frame{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--limestone),var(--champagne));overflow:hidden;
+  box-shadow:0 0 0 1px var(--hair-soft),0 50px 100px -60px rgba(58,44,24,.5)}
+.km-film-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.km-film-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.km-play{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--ivory-hi);cursor:pointer;background:linear-gradient(0deg,rgba(28,22,16,.35),rgba(28,22,16,.12))}
+.km-play-ring{width:4.6rem;height:4.6rem;border-radius:50%;border:1px solid var(--ivory-hi);display:grid;place-items:center;background:rgba(28,22,16,.3);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);transition:transform .35s var(--ease),background .35s var(--ease)}
+.km-play:hover .km-play-ring,.km-play:focus-visible .km-play-ring{transform:scale(1.06);background:rgba(28,22,16,.5)}
+.km-play-ring i{width:0;height:0;border-left:.9rem solid var(--ivory-hi);border-top:.55rem solid transparent;border-bottom:.55rem solid transparent;margin-left:.22rem}
+.km-play-text{font:400 var(--t-micro)/1 var(--f-text);letter-spacing:var(--track-wide);text-transform:uppercase}
+
+/* ---------- 8 · landing section (index.html #method) ---------- */
+.km--landing{padding:var(--sec) 0}
+
+.km--landing .label{display:block;margin-bottom:1.4rem}
+.km--landing .km-line{margin-top:1rem;font:400 clamp(1.05rem,1.7vw,1.5rem)/1.2 var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--bronze)}
+.km--landing .lede{max-width:34em;font-size:1rem}
+
+/* ---------- 9 · responsive / motion ---------- */
+
+@media (max-width:900px){
+  .km-intro-grid,.km-steps-grid,.km-film-grid{grid-template-columns:1fr;gap:var(--s-5)}
+  .km-rail{position:static}
+  .km-rail-list{display:none}
+  .km-for-grid{grid-template-columns:1fr}
+  .km-trans-head--method{grid-template-columns:1fr;gap:1.2rem}
+  .km-trans-hint{justify-self:start;text-align:left}
+  .km-step{grid-template-columns:3rem 1fr}
+  
+  
+  
+}
+@media (max-width:640px){
+  
+  
+  .bax-stage{aspect-ratio:4/5;max-height:none}
+  .bax-cap b{font-size:clamp(1.4rem,6vw,2rem)}
+  
+}
+@media (prefers-reduced-motion:reduce){
+  .km-step{opacity:1;transition:none}
+  
+  .km-rail-list::after{transition:none}
+}
+
+/* the founder film, composed from the studio's photographs */
+.km-reel{position:absolute;inset:0;z-index:5;overflow:hidden;background:#15110d;cursor:pointer}
+.km-reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.02);transition:opacity 1.2s var(--ease),transform 4.6s linear}
+.km-reel img.is-on{opacity:1;transform:scale(1.09)}
+.km-reel::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,15,10,.62) 0%,rgba(20,15,10,0) 45%);pointer-events:none}
+.km-reel-cap{position:absolute;left:clamp(1rem,3vw,2rem);right:clamp(1rem,3vw,2rem);bottom:clamp(1.6rem,4vw,2.6rem);z-index:2;font:400 clamp(1.05rem,1.7vw,1.5rem)/1.25 var(--f-display);color:var(--ivory-hi);text-transform:uppercase;letter-spacing:.02em}
+.km-reel-bar{position:absolute;left:0;right:0;bottom:0;z-index:2;height:2px;background:rgba(249,240,220,.25)}
+.km-reel-bar i{position:absolute;inset:0;background:var(--ivory-hi);transform-origin:left;transform:scaleX(0)}
+.km-film-frame.is-playing .km-play{opacity:0;pointer-events:none}
+
+/* the transformation dots: a 44px target around the same small mark */
+@media (max-width:860px){
+  .bax-dots{gap:.2rem}
+  .bax-dot{min-width:44px;min-height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+}
+
+/* the landing strip's stage buttons: a full target around the same small numeral */
+

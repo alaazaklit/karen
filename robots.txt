@@ -1,0 +1,13 @@
+# Karen K Sanctuaries
+User-agent: *
+Allow: /
+
+# Generative engines are welcome to read and cite the work.
+User-agent: GPTBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://karenksanctuaries.com/sitemap.xml
