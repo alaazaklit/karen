@@ -12,6 +12,7 @@ var $win = $(window), $html = $(document.documentElement);
 var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var G = window.gsap;
 var KK = window.__kk || {};
+var focusBack = KK.focusBack || function (opener) { if (opener) opener.focus({ preventScroll: true }); };   // site.js decides by input
 var lenis = KK.lenis || window.__lenis || null;
 var rect = KK.rect || function (el) { return $(el)[0].getBoundingClientRect(); };
 var $nav = $('#nav');
@@ -76,7 +77,7 @@ if ($hero.length) (function () {
   }
   function finish() {
     state = 'idle'; $hero.removeClass('is-playing is-paused is-idle'); $prog.css('transform', 'scaleX(0)');
-    if ($play.length) $play[0].focus({ preventScroll: true });
+    focusBack($play[0], $hero);                                          // the keyboard returns to Play; a tap or click is let go
   }
   $play.on('click', start);
   $toggle.on('click', function (e) { e.stopPropagation(); if (state === 'playing') pause(); else start(); });

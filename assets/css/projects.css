@@ -80,35 +80,35 @@
 .wk-empty p{color:var(--ink-2);max-width:30em;margin-bottom:1.8rem}
 .wk-empty-act{display:flex;gap:1.4rem 2rem;flex-wrap:wrap;align-items:center}
 
-/* ---------- 6 · the wings cursor (fine pointers only; built by cursor.js) ----------
-   The two wings of the Karen K mark (assets/img/cursor/), hinged where they meet — the pointer's exact
-   point. Folded as they arrive (the gateway's closed wings), open over the photograph, a wing-beat on a
-   press. cursor.js moves the whole (translate), banks the wings with the hand (--bank) and lifts or
-   settles them with its vertical speed (--flap); everything else is here. */
-.kk-cur{position:fixed;left:0;top:0;z-index:40;pointer-events:none;width:0;height:0;will-change:transform;--kc-w:3.5rem}
-.kk-cur-body{position:absolute;left:0;top:0;width:0;height:0;rotate:var(--bank,0deg);opacity:0;scale:.72;
-  transition:opacity .35s var(--ease),scale .6s cubic-bezier(.2,.8,.2,1)}
-.kk-cur.is-on .kk-cur-body{opacity:1;scale:1}
-.kk-cur-body::before{content:"";position:absolute;left:-4.8rem;top:-3.9rem;width:9.6rem;height:5.8rem;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(20,15,10,.32),rgba(20,15,10,0))}
-.kk-cur-wing{position:absolute;bottom:0;width:var(--kc-w);transition:rotate .7s cubic-bezier(.2,1.25,.32,1)}
-.kk-cur-wing img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 1px rgba(20,15,10,.6)) drop-shadow(0 2px 6px rgba(20,15,10,.45))}
-.kk-cur-wing--l{right:0;transform-origin:100% 100%;rotate:38deg;transform:rotate(var(--flap,0deg))}
-.kk-cur-wing--r{left:0;transform-origin:0 100%;rotate:-38deg;transform:rotate(calc(var(--flap,0deg) * -1))}
+/* ---------- 6 · the wings cursor (fine pointers only; built and flown by cursor.js) ----------
+   The studio's golden wings (assets/img/cursor/), meeting just above the pointer, the action named beneath
+   them. They arrive raised and small and open over the photograph on a soft spring; cursor.js then flies them,
+   writing --wl / --wr (the wing-beat about each shoulder), --bob (the lift of each downbeat), --bank (into
+   turns) and --shine / --glow (the light caught low in each beat). A press is one quick beat. Like a pointer it
+   passes over the header; the photo viewer, the menu and the enquiry overlay all sit above it. */
+.kk-cur{position:fixed;left:0;top:0;z-index:calc(var(--z-nav) + 10);pointer-events:none;width:0;height:0;will-change:transform;
+  --kc-w:8.4rem;--kc-h:calc(var(--kc-w) * .7274)}
+.kk-cur-fly{position:absolute;left:0;top:0;width:0;height:0;transform:translateY(var(--bob,0px)) rotate(var(--bank,0deg));
+  opacity:0;scale:.58;transition:opacity .45s var(--ease),scale .9s cubic-bezier(.16,1.18,.3,1)}
+.kk-cur.is-on .kk-cur-fly{opacity:1;scale:1}
+.kk-cur-pair{position:absolute;left:calc(var(--kc-w) * -.5);bottom:.1rem;width:var(--kc-w);height:var(--kc-h)}
+.kk-cur-halo{position:absolute;left:-14%;top:-12%;width:128%;height:124%;border-radius:50%;opacity:var(--glow,.62);
+  background:radial-gradient(closest-side,rgba(255,214,150,.34),rgba(255,214,150,.12) 55%,rgba(255,214,150,0))}
+.kk-cur-wing{position:absolute;top:0;width:49.81%;transition:rotate 1s cubic-bezier(.16,1.22,.3,1)}
+.kk-cur-wing--l{left:0;transform-origin:87% 13%;rotate:34deg}
+.kk-cur-wing--r{left:50.19%;transform-origin:13% 13%;rotate:-34deg}
 .kk-cur.is-on .kk-cur-wing{rotate:0deg}
-.kk-cur.is-on.is-down .kk-cur-wing{transition-duration:.16s}
-.kk-cur.is-on.is-down .kk-cur-wing--l{rotate:16deg}
-.kk-cur.is-on.is-down .kk-cur-wing--r{rotate:-16deg}
-.kk-cur-wing--l img{transform-origin:100% 100%;animation:kk-wing-l 3.6s ease-in-out infinite}
-.kk-cur-wing--r img{transform-origin:0 100%;animation:kk-wing-r 3.6s ease-in-out infinite}
-@keyframes kk-wing-l{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-4deg)}}
-@keyframes kk-wing-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(4deg)}}
-.kk-cur-label{position:absolute;left:0;top:.85rem;translate:-50% .3rem;white-space:nowrap;opacity:0;
+.kk-cur-wing img{display:block;width:100%;height:auto;
+  filter:brightness(var(--shine,1)) drop-shadow(0 1px 1px rgba(20,15,10,.45)) drop-shadow(0 7px 12px rgba(20,15,10,.34))}
+.kk-cur-wing--l img{transform-origin:87% 13%;transform:rotate(var(--wl,0deg))}
+.kk-cur-wing--r img{transform-origin:13% 13%;transform:rotate(var(--wr,0deg))}
+.kk-cur-label{position:absolute;left:0;top:.55rem;translate:-50% .35rem;white-space:nowrap;opacity:0;
   padding:.52rem .8rem .52rem calc(.8rem + .24em);border:1px solid rgba(207,178,131,.5);background:rgba(21,19,17,.55);
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   font:400 .58rem/1 var(--f-text);letter-spacing:.24em;text-transform:uppercase;color:var(--ivory-hi);
-  transition:opacity .35s var(--ease),translate .5s cubic-bezier(.2,.8,.2,1)}
-.kk-cur.is-on .kk-cur-label{opacity:1;translate:-50% 0;transition-delay:.12s}
+  transition:opacity .35s var(--ease),translate .55s cubic-bezier(.2,.8,.2,1),scale .2s var(--ease)}
+.kk-cur.is-on .kk-cur-label{opacity:1;translate:-50% 0;transition-delay:.14s,.14s,0s}
+.kk-cur.is-down .kk-cur-label{scale:.95}
 @media (hover:none),(pointer:coarse){.kk-cur{display:none}}
 @media (prefers-reduced-motion:reduce){.kk-cur{display:none}}
 

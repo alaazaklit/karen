@@ -15,6 +15,8 @@ var motion = !!(G && ST) && !reduce;
 var KK = window.__kk || {};
 var lenis = KK.lenis || window.__lenis || null;
 var rect = KK.rect || function (el) { return $(el)[0].getBoundingClientRect(); };
+var focusIn = KK.focusIn || function (control) { if (control) control.focus({ preventScroll: true }); };      // site.js decides by input
+var focusBack = KK.focusBack || function (opener) { if (opener) opener.focus({ preventScroll: true }); };
 var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 function pad(n) { return (n < 10 ? '0' : '') + n; }
 function refresh() { if (ST) ST.refresh(); if (lenis && lenis.resize) lenis.resize(); }
@@ -105,7 +107,7 @@ $('[data-film]').each(function () {
   function pause() { if (state !== 'playing') return; tl.pause(); state = 'paused'; $sec.addClass('is-paused'); $toggle.attr('aria-label', 'Play the film'); awake(); }
   function finish() {
     state = 'idle'; $sec.removeClass('is-playing is-paused is-idle'); $prog.css('transform', 'scaleX(0)');
-    if ($playBtn.length) $playBtn[0].focus({ preventScroll: true });
+    focusBack($playBtn[0], $sec);                                        // the keyboard returns to Play; a tap or click is let go
   }
   $playBtn.on('click', play);
   $toggle.on('click', function (e) { e.stopPropagation(); if (state === 'playing') pause(); else play(); });
@@ -195,11 +197,11 @@ if ($items.length) (function () {
   function open(i) {
     last = document.activeElement; $vw.prop('hidden', false); $html.addClass('viewer-open');
     window.requestAnimationFrame(function () { $vw.addClass('is-open'); });
-    show(i, 0); if (lenis && lenis.stop) lenis.stop(); $vw.find('.cs-viewer-close').trigger('focus');
+    show(i, 0); if (lenis && lenis.stop) lenis.stop(); focusIn($vw.find('.cs-viewer-close')[0], $vw[0]);
   }
   function close() {
     $vw.removeClass('is-open'); $html.removeClass('viewer-open');
-    setTimeout(function () { $vw.prop('hidden', true); }, 450); if (lenis && lenis.start) lenis.start(); if (last) last.focus({ preventScroll: true });
+    setTimeout(function () { $vw.prop('hidden', true); }, 450); if (lenis && lenis.start) lenis.start(); focusBack(last, $vw);
   }
   $items.each(function (i) {
     var $el = $(this);

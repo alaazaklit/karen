@@ -87,6 +87,8 @@ fieldset{border:0;min-width:0}
 [hidden]{display:none!important}
 ::selection{background:var(--ink);color:var(--ivory)}
 :focus-visible{outline:1.5px solid var(--ink);outline-offset:4px}
+/* a dialog, section or heading that script moves focus onto (tabindex -1) is a reading position, not a control: no ring */
+[tabindex="-1"]:not(a,button,input,select,textarea,summary):focus{outline:none}
 .skip-link{position:fixed;top:-4rem;left:1rem;z-index:calc(var(--z-loader) + 1);background:var(--ink);color:var(--ivory);
   padding:.7rem 1.2rem;font:400 var(--t-label)/1 var(--f-text);letter-spacing:var(--track);text-transform:uppercase;transition:top .2s}
 .skip-link:focus{top:1rem}
