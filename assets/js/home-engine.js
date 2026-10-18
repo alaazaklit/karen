@@ -42,7 +42,10 @@ var CFG = {
               lights: [[0.85, 0.46, 0.06, 0.13, 0.953, 0.871, 0.706, 0.45], [0.44, 0.34, 0.05, 0.26, 0.941, 0.878, 0.761, 0.30], [0.58, 0.34, 0.04, 0.22, 0.941, 0.878, 0.761, 0.24]] }
   },
   mobilePinScale: 0.72,
-  wing: { maxAngle: 1.05, maxShift: 1.55, bow: 0.42 },
+  /* the closed wings fill `frame` of the screen's height. A landscape screen keeps them inside its width (at most `fitW`
+     of it); a portrait screen lets them bleed off both sides (up to `bleedW` of its width), so a phone sees the same
+     composition as the desktop through a narrower window instead of a small pair of wings in an empty hall */
+  wing: { maxAngle: 1.05, maxShift: 1.55, bow: 0.42, frame: 0.70, fitW: 0.82, bleedW: 1.8 },
   camera: { start: 10, end: 5.6, fov: 42 },
   /* the depth stage: every plate covers the viewport at COVER units from the camera. The camera walks along -z:
      hall (z -6) → through its light slit → the arches (z -18.1) → through the far doorway → the Studio (z -30.2). */
@@ -676,7 +679,8 @@ function initHallWebGL() {
     camera.aspect = w / h; camera.updateProjectionMatrix();
     var vFov = CFG.camera.fov * Math.PI / 180;
     var viewH = 2 * Math.tan(vFov / 2) * CFG.camera.start, viewW = viewH * camera.aspect;
-    var s = Math.min((viewH * 0.70) / 2.0, (viewW * 0.82) / 2.6);
+    var maxW = lerp(CFG.wing.fitW, CFG.wing.bleedW, ss(1.0, 0.75, camera.aspect));   // square → 4:5 portrait: fit → bleed
+    var s = Math.min((viewH * CFG.wing.frame) / 2.0, (viewW * maxW) / 2.6);
     root.scale.setScalar(s);
     var bgDist = CFG.camera.start + 6;
     var bgH = 2 * Math.tan(vFov / 2) * bgDist, bgW = bgH * camera.aspect;

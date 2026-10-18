@@ -288,6 +288,14 @@ html:is(.cine-static,.no-js) .st-glow{opacity:1}
   
 }
 
+/* portrait screens: the closed wings fill the frame and bleed off both sides (home-engine.js, CFG.wing), so the titles
+   stand on the feathers rather than the dark hall. The dark pool behind them reaches down to the two small lines, and
+   those lines take a tight dark edge at the glyph (the remedy used for .ar-kicker) */
+@media (orientation:portrait){
+  .gw-head::before{top:53%;height:84vmin;background:radial-gradient(closest-side,rgba(26,19,12,.72),transparent 76%)}
+  .gw-disc,.gw-cities{text-shadow:0 0 3px rgba(26,19,12,.9),0 1px 8px rgba(26,19,12,1),0 0 22px rgba(26,19,12,.9)}
+}
+
 /* short landscape viewports (phones on their side): the name must not fill the frame */
 @media (max-height:540px) and (orientation:landscape){
   .gw-name{font-size:clamp(1.9rem,11vh,3.4rem)}
